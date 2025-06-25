@@ -4,7 +4,7 @@ import React from "react";
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Helloooo woooorld!</Text>
+      <Text style={styles.heading}>Aora!</Text>
     </View>
   );
 }
