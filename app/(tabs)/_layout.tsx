@@ -4,7 +4,17 @@ import { Tabs, Redirect } from "expo-router";
 
 import { icons } from "@/constants";
 
-const TabIcon = ({ color, icon, name, focused }) => {
+const TabIcon = ({
+  color,
+  icon,
+  name,
+  focused,
+}: {
+  color: string;
+  icon: any;
+  name: string;
+  focused: boolean;
+}) => {
   return (
     <View className="items-center justify-center gap-2">
       <Image
@@ -32,16 +42,24 @@ const TabsLayout = () => {
       >
         <Tabs.Screen
           name="home"
-          options={{ title: "Home" }}
-          headerShown={false}
-          tabBarIcon={({ color, focused }) => (
-            <TabIcon
-              icon={icons.home}
-              name="Home"
-              color={color}
-              focused={focused}
-            />
-          )}
+          options={{
+            title: "Home",
+            headerShown: false,
+            tabBarIcon: ({
+              color,
+              focused,
+            }: {
+              color: string;
+              focused: boolean;
+            }) => (
+              <TabIcon
+                icon={icons.home}
+                name="Home"
+                color={color}
+                focused={focused}
+              />
+            ),
+          }}
         />
       </Tabs>
     </>
