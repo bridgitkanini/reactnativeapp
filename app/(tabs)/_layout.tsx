@@ -24,7 +24,11 @@ const TabIcon = ({
         className="w-6 h-6"
       />
       <Text
-        className={`${focused ? "font-psemibold" : "font-pregular"} text-xs`}
+        className={`${
+          focused ? "font-psemibold" : "font-pregular"
+        } text-[8px] max-w-[50px] text-center truncate`}
+        numberOfLines={1}
+        ellipsizeMode="tail"
       >
         {name}
       </Text>
