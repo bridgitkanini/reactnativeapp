@@ -29,6 +29,9 @@ const TabIcon = ({
         } text-[8px] max-w-[50px] text-center truncate`}
         numberOfLines={1}
         ellipsizeMode="tail"
+        style={{
+          color: color
+        }}
       >
         {name}
       </Text>
@@ -42,6 +45,14 @@ const TabsLayout = () => {
       <Tabs
         screenOptions={{
           tabBarShowLabel: false,
+          tabBarActiveTintColor: '#FFF001',
+          tabBarInactiveTintColor: '#CDCDE0',
+          tabBarStyle: {
+            backgroundColor: '#161622',
+            borderTopWidth: 1,
+            borderTopColor: '#232533',
+            height: 84,
+          }
         }}
       >
         <Tabs.Screen
