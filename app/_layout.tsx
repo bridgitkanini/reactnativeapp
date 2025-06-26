@@ -1,10 +1,13 @@
 import "../global.css";
-import {  Stack } from "expo-router";
+import { SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
+import React, { useEffect } from "react";
 
-
+// Prevent the splash screen from auto-hiding until fonts are loaded
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  // Load custom fonts
   const [fontsLoaded, error] = useFonts({
     "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
     "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
@@ -16,6 +19,20 @@ export default function RootLayout() {
     "Poppins-SemiBold": require("../assets/fonts/Poppins-SemiBold.ttf"),
     "Poppins-Thin": require("../assets/fonts/Poppins-Thin.ttf"),
   });
+
+  // useEffect ensures the splash screen is hidden only after fonts are loaded or if there's an error
+  useEffect(() => {
+    if (error) throw error;
+
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, error]);
+
+  // Render nothing while fonts are loading and there's no error
+  if (!fontsLoaded && !error) {
+    return null;
+  }
 
   return (
     <Stack>
