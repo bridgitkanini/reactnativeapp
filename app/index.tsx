@@ -22,8 +22,9 @@ const index = () => {
           />
           <View className="relative mt-5">
             <Text className="text-3xl text-white font-bold text-center">
-              Discover Endless 
-              Possibilities with{" "}
+              <Text>Discover Endless</Text>
+              {"\n"}
+              <Text>Possibilities with </Text>
               <Text className="text-secondary-200">Aora!</Text>
             </Text>
           </View>
