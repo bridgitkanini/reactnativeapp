@@ -22,9 +22,7 @@ const index = () => {
           />
           <View className="relative mt-5">
             <Text className="text-3xl text-white font-bold text-center">
-              <Text>Discover Endless</Text>
-              {"\n"}
-              <Text>Possibilities with </Text>
+              <Text>Discover Endless {"\n"} Possibilities with </Text>
               <Text className="text-secondary-200">Aora!</Text>
             </Text>
 
@@ -35,9 +33,9 @@ const index = () => {
             />
           </View>
 
-          <Text className="text-sm font-pregular text-gray-100 mt-7 text-center">
-            Where creativity meets innovation: embark on a journey  of limitless
-            exploration with Aora
+          <Text className="text-base font-pregular text-gray-100 mt-7 text-center">
+            Where creativity meets innovation: embark on a journey {"\n"} of
+            limitless exploration with Aora
           </Text>
         </View>
       </ScrollView>
