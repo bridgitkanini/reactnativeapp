@@ -5,6 +5,16 @@ import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { images } from "@/constants";
+import CustomButton from "@/components/CustomButton";
+/**
+ * The root route of the app, which displays the Aora logo,
+ * a hero image of cards, and a tagline. The component is
+ * wrapped in a SafeAreaView and a ScrollView, and the outer
+ * View is given a height of 100% so that the content
+ * container is the full height of the screen.
+ *
+ * The component uses Tailwind CSS classes for styling.
+ */
 const index = () => {
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -37,6 +47,8 @@ const index = () => {
             Where creativity meets innovation: embark on a journey {"\n"} of
             limitless exploration with Aora
           </Text>
+
+          <CustomButton />
         </View>
       </ScrollView>
     </SafeAreaView>
