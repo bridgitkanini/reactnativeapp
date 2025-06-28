@@ -37,6 +37,7 @@ const SignIn = () => {
             handleChangetext={(e) => setForm({ ...form, email: e })}
             otherStyles="mt-7"
             keyboardType="email-address"
+            placeholder="Enter your email"
           />
 
           <FormField
@@ -44,6 +45,7 @@ const SignIn = () => {
             value={form.password}
             handleChangetext={(e) => setForm({ ...form, password: e })}
             otherStyles="mt-7"
+            placeholder="Enter your password"
           />
 
           <CustomButton
@@ -57,7 +59,12 @@ const SignIn = () => {
             <Text className="text-lg text-gray-100 font-pregular">
               Don't have an account?
             </Text>
-            <Link href="/sign-up" className="text-lg font-psemibold text-secondary">Sign Up</Link>
+            <Link
+              href="/sign-up"
+              className="text-lg font-psemibold text-secondary"
+            >
+              Sign Up
+            </Link>
           </View>
         </View>
       </ScrollView>
