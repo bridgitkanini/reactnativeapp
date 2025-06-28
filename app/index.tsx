@@ -27,6 +27,12 @@ const index = () => {
               <Text>Possibilities with </Text>
               <Text className="text-secondary-200">Aora!</Text>
             </Text>
+
+            <Image
+              source={images.path}
+              className="w-[136px] h-[15px] absolute -bottom-2 -right-8"
+              resizeMode="contain"
+            />
           </View>
         </View>
       </ScrollView>
