@@ -1,51 +1,59 @@
 # reactnativeapp
+
 # Welcome to your Expo app 👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Get started
+## Getting Started
 
-1. Install dependencies
+1. **Install dependencies**
+
+   If you use [pnpm](https://pnpm.io/):
+
+   ```bash
+   pnpm install
+   ```
+
+   Or, with npm:
 
    ```bash
    npm install
    ```
 
-2. Start the app
+2. **Start the app**
 
    ```bash
-    npx expo start
+   npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+   This will open the Expo Dev Tools in your browser, where you can run the app on an Android/iOS simulator or a physical device using Expo Go.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Project Structure
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- `app/` - Main application code, using [file-based routing](https://docs.expo.dev/router/introduction/).
+  - `(auth)/` - Authentication screens (sign-in, sign-up).
+  - `(tabs)/` - Main tab screens (home, bookmark, create, profile).
+  - `search/` - Search results by query.
+  - `_layout.tsx` - Layout files for routing.
+- `components/` - Reusable UI components (e.g., `CustomButton`, `FormField`).
+- `constants/` - App-wide constants (icons, images, etc.).
+- `lib/` - Library code (e.g., `appwrite.js` for backend integration).
+- `assets/` - Images, icons, and fonts.
+- `global.css` - Global styles.
+- `tailwind.config.js` - Tailwind CSS configuration for styling.
 
-## Get a fresh project
+## Development
 
-When you're ready, run:
+- Edit files in the `app/` directory to add or modify screens.
+- Use the `components/` directory for shared UI elements.
+- Static assets (images, icons, fonts) are in the `assets/` directory.
 
-```bash
-npm run reset-project
-```
+## Learn More
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- [Expo documentation](https://docs.expo.dev/): Learn fundamentals and advanced topics.
+- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Step-by-step guide for building universal apps.
 
-## Learn more
+## Join the Community
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
+- [Expo on GitHub](https://github.com/expo/expo): Contribute to the open source platform.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
