@@ -15,28 +15,10 @@ import Trending from "@/components/Trending";
 import EmptyState from "@/components/EmptyState";
 
 import { getAllPosts } from "@/lib/appwrite";
+import useAppwrite from "@/lib/useAppwrite";
 
 const Home = () => {
-  const [data, setData] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-
-      try {
-        const response = await getAllPosts();
-        setData(response);
-      } catch (error: any) {
-        Alert.alert("Error", error.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
-
-  console.log(data);
+  const { data: posts } = useAppwrite(getAllPosts);
 
   const [search, setSearch] = useState("");
 
@@ -47,6 +29,8 @@ const Home = () => {
     // re call videos -> if any new videos appear
     setRefreshing(false);
   };
+
+  console.log(posts);
 
   return (
     <SafeAreaView className="bg-primary h-full">
