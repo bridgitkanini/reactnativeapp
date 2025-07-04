@@ -18,7 +18,7 @@ import { getAllPosts } from "@/lib/appwrite";
 import useAppwrite from "@/lib/useAppwrite";
 
 const Home = () => {
-  const { data: posts } = useAppwrite(getAllPosts);
+  const { data: posts, refetch } = useAppwrite(getAllPosts);
 
   const [search, setSearch] = useState("");
 
@@ -26,7 +26,7 @@ const Home = () => {
 
   const onRefresh = async () => {
     setRefreshing(true);
-    // re call videos -> if any new videos appear
+    await refetch();
     setRefreshing(false);
   };
 
@@ -35,10 +35,10 @@ const Home = () => {
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
-        data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
+        data={posts}
         keyExtractor={(item) => `${item.id}`}
         renderItem={({ item }) => (
-          <Text className="text-3xl text-white">{item.id}</Text>
+          <Text className="text-3xl text-white">{item.title}</Text>
         )}
         ListHeaderComponent={() => (
           <View className="my-6 px-4 space-y-36">
