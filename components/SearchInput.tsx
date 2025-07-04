@@ -39,7 +39,7 @@ const SearchInput = ({
         className="text-base mt-0.5 text-white flex-1 font-pregular"
         value={value}
         onChangeText={handleChangetext}
-        placeholder={placeholder}
+        placeholder="Search for a video topic"
         placeholderTextColor="#7b7b8b"
         secureTextEntry={title === "Password" && !showPassword}
         onFocus={() => setIsFocused(true)}
