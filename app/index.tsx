@@ -6,6 +6,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { images } from "@/constants";
 import CustomButton from "@/components/CustomButton";
+
+import { useGlobalContext } from "@/context/GlobalProvider";
+
 /**
  * The root route of the app, which displays the Aora logo,
  * a hero image of cards, and a tagline. The component is
@@ -16,6 +19,13 @@ import CustomButton from "@/components/CustomButton";
  * The component uses Tailwind CSS classes for styling.
  */
 const index = () => {
+  const { isLoggedIn, isLoading } = useGlobalContext();
+
+  if (!isLoading && isLoggedIn) {
+    return <Redirect href="/home" />;
+  }
+
+  
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView contentContainerStyle={{ height: "100%" }}>
