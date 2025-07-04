@@ -1,4 +1,11 @@
-import { View, Text, FlatList, Image, RefreshControl, Alert } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  RefreshControl,
+  Alert,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -10,7 +17,7 @@ import EmptyState from "@/components/EmptyState";
 import { getAllPosts } from "@/lib/appwrite";
 
 const Home = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -20,7 +27,7 @@ const Home = () => {
       try {
         const response = await getAllPosts();
         setData(response);
-      } catch (error) {
+      } catch (error: any) {
         Alert.alert("Error", error.message);
       } finally {
         setIsLoading(false);
