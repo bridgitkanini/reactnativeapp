@@ -18,8 +18,23 @@ import VideoCard from "@/components/VideoCard";
 import { getAllPosts } from "@/lib/appwrite";
 import useAppwrite from "@/lib/useAppwrite";
 
+// Define the type for posts from Appwrite
+type Post = {
+  $id: string;
+  title: string;
+  thumbnail: string;
+  video: string;
+  author?: {
+    username: string;
+    avatar: string;
+  } | null;
+};
+
 const Home = () => {
-  const { data: posts, refetch } = useAppwrite(getAllPosts);
+  const { data: posts, refetch } = useAppwrite(getAllPosts) as {
+    data: Post[];
+    refetch: () => void;
+  };
 
   const [search, setSearch] = useState("");
 
@@ -31,13 +46,11 @@ const Home = () => {
     setRefreshing(false);
   };
 
-  console.log(posts);
-
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
         data={posts}
-        keyExtractor={(item) => `${item.id}`}
+        keyExtractor={(item) => item.$id}
         renderItem={({ item }) => <VideoCard video={item} />}
         ListHeaderComponent={() => (
           <View className="my-6 px-4 space-y-36">
@@ -68,7 +81,7 @@ const Home = () => {
               <Text className="text-gray-100 text-lg font-pregular mb-3">
                 Latest Videos
               </Text>
-              <Trending posts={[{ id: 1 }, { id: 2 }, { id: 3 }] ?? []} />
+              <Trending posts={[{ id: 1 }, { id: 2 }, { id: 3 }]} />
             </View>
           </View>
         )}
