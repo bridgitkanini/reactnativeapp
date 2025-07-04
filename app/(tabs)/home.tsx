@@ -1,10 +1,12 @@
 import { View, Text, FlatList, Image } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { images } from "@/constants";
+import SearchInput from "@/components/SearchInput";
 
 const Home = () => {
+  const [search, setSearch] = useState("");
   return (
     <SafeAreaView className="bg-primary">
       <FlatList
@@ -32,7 +34,12 @@ const Home = () => {
                 />
               </View>
             </View>
-            
+            <SearchInput
+              title="Search"
+              value={search}
+              handleChangetext={setSearch}
+              placeholder="Search..."
+            />
           </View>
         )}
       />
