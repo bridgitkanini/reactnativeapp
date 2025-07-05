@@ -13,12 +13,12 @@ import { Video, ResizeMode } from "expo-av";
 import { icons } from "@/constants";
 
 interface TrendingProps {
-  posts: Array<{ $id: string; thumbnail: string }>;
+  posts: Array<{ $id: string; thumbnail: string; video: string }>;
 }
 
 interface TrendingItemProps {
   activeItem: { $id: string };
-  item: { $id: string; thumbnail: string };
+  item: { $id: string; thumbnail: string; video: string };
 }
 
 const zoomIn = {
@@ -37,7 +37,7 @@ const TrendingItem = ({ activeItem, item }: TrendingItemProps) => {
   return (
     <Animatable.View
       className="mr-5"
-      animation={activeItem === item.$id ? zoomIn : zoomOut}
+      animation={activeItem.$id === item.$id ? zoomIn : zoomOut}
       duration={500}
     >
       {play ? (
@@ -47,8 +47,8 @@ const TrendingItem = ({ activeItem, item }: TrendingItemProps) => {
         resizeMode={ResizeMode.CONTAIN} 
         useNativeControls 
         shouldPlay 
-        onPlaybackStatusUpdate={(staus) => {
-          if (staus.didJustFinish) {
+        onPlaybackStatusUpdate={(status) => {
+          if (status.isLoaded && status.didJustFinish) {
             setPlay(false);
           }
         }}
@@ -77,9 +77,9 @@ const TrendingItem = ({ activeItem, item }: TrendingItemProps) => {
 const Trending = ({ posts }: TrendingProps) => {
   const [activeItem, setActiveItem] = useState(posts[1]);
 
-  const viewableItemsChanged = ({ viewableItems }) => {
+  const viewableItemsChanged = ({ viewableItems }: { viewableItems: Array<{ key: string; item: { $id: string; thumbnail: string; video: string } }> }) => {
     if (viewableItems.length > 0) {
-      setActiveItem(viewableItems[0].key);
+      setActiveItem(viewableItems[0].item);
     }
   };
 
@@ -92,7 +92,7 @@ const Trending = ({ posts }: TrendingProps) => {
       )}
       onViewableItemsChanged={viewableItemsChanged}
       viewabilityConfig={{ itemVisiblePercentThreshold: 70 }}
-      contentOffset={{ x: 170}}
+      contentOffset={{ x: 170, y: 0 }}
       horizontal
     />
   );
