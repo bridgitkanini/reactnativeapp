@@ -5,10 +5,12 @@ import {
   TouchableOpacity,
   Image,
   TextInputProps,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 
 import { icons } from "@/constants";
+import { router, usePathname } from "expo-router";
 
 interface SearchInputProps extends TextInputProps {
   title: string;
@@ -18,15 +20,11 @@ interface SearchInputProps extends TextInputProps {
   otherStyles?: string;
 }
 
-const SearchInput = ({
-  title,
-  value,
-  placeholder,
-  handleChangetext,
-  otherStyles,
-  ...props
-}: SearchInputProps) => {
-  const [showPassword, setShowPassword] = useState(false);
+const SearchInput = () => {
+  const pathname = usePathname();
+
+  const [query, setQuery] = useState("");
+
   const [isFocused, setIsFocused] = useState(false);
 
   return (
@@ -37,22 +35,30 @@ const SearchInput = ({
     >
       <TextInput
         className="text-base mt-0.5 text-white flex-1 font-pregular"
-        value={value}
-        onChangeText={handleChangetext}
+        value={query}
+        onChangeText={(e) => setQuery(e)}
         placeholder="Search for a video topic"
-        placeholderTextColor="#7b7b8b"
-        secureTextEntry={title === "Password" && !showPassword}
+        placeholderTextColor="#CDCDE0"
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        {...props}
       />
 
-      <TouchableOpacity>
-        <Image
-          source={icons.search}
-          className="w-5 h-5"
-          resizeMode="contain"
-        />
+      <TouchableOpacity
+        onPress={() => {
+          if (!query) {
+            return Alert.alert(
+              "Missing query",
+              "Please input something to search results across database"
+            );
+          }
+          if (pathname === "/search") {
+            router.setParams({ query });
+          } else {
+            router.push(`/search/${query}`);
+          }
+        }}
+      >
+        <Image source={icons.search} className="w-5 h-5" resizeMode="contain" />
       </TouchableOpacity>
     </View>
   );
