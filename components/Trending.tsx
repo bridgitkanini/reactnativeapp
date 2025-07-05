@@ -7,37 +7,33 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import * as Animatable from "react-native-animatable";
-import { ZoomOutLeft } from "../node_modules/react-native-reanimated/src/layoutReanimation/defaultAnimations/Zoom";
 
 interface TrendingProps {
-  posts: Array<{ id: number }>;
+  posts: Array<{ $id: string; thumbnail: string }>;
+}
+
+interface TrendingItemProps {
+  activeItem: { $id: string };
+  item: { $id: string; thumbnail: string };
 }
 
 const zoomIn = {
-  0: {
-    scale: 0.9,
-  },
-  1: {
-    scale: 1,
-  },
-};
+    from: { transform: [{ scale: 0.9 }] },
+    to: { transform: [{ scale: 1 }] },
+  };
+  
+  const zoomOut = {
+    from: { transform: [{ scale: 1 }] },
+    to: { transform: [{ scale: 0.9 }] },
+  };
 
-const zoomOut = {
-  0: {
-    scale: 1,
-  },
-  1: {
-    scale: 0.9,
-  },
-};
-
-const TrendingItem = ({ activeItem, item }) => {
+const TrendingItem = ({ activeItem, item }: TrendingItemProps) => {
   const [play, setPlay] = useState(false);
 
   return (
     <Animatable.View
       className="mr-5"
-      animation={activeItem === item.$id ? zoomIn : zoomOut}
+      animation={activeItem.$id === item.$id ? zoomIn : zoomOut}
       duration={500}
     >
       {play ? (
@@ -65,7 +61,7 @@ const Trending = ({ posts }: TrendingProps) => {
   return (
     <FlatList
       data={posts}
-      keyExtractor={(item) => `${item.id}`}
+      keyExtractor={(item) => `${item.$id}`}
       renderItem={({ item }) => (
         <TrendingItem activeItem={activeItem} item={item} />
       )}
