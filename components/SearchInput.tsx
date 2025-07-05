@@ -20,7 +20,7 @@ interface SearchInputProps extends TextInputProps {
   otherStyles?: string;
 }
 
-const SearchInput = ({ initialQuery }) => {
+const SearchInput = ({ initialQuery }: { initialQuery?: string }) => {
   const pathname = usePathname();
 
   const [query, setQuery] = useState(initialQuery ||"");

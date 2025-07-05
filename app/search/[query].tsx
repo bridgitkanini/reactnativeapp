@@ -48,7 +48,9 @@ const Search = () => {
             <Text className="font-psemibold text-2xl text-white">{query}</Text>
 
             <View className="mt-6 mb-8">
-              <SearchInput initialQuery={query} />
+              <SearchInput
+                initialQuery={Array.isArray(query) ? query[0] : query}
+              />
             </View>
           </View>
         )}
