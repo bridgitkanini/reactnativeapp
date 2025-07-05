@@ -4,7 +4,6 @@ import {
   FlatList,
   Image,
   RefreshControl,
-  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -15,7 +14,7 @@ import Trending from "@/components/Trending";
 import EmptyState from "@/components/EmptyState";
 import VideoCard from "@/components/VideoCard";
 
-import { getAllPosts } from "@/lib/appwrite";
+import { getAllPosts, getLatestPosts } from "@/lib/appwrite";
 import useAppwrite from "@/lib/useAppwrite";
 
 // Define the type for posts from Appwrite
@@ -32,6 +31,11 @@ type Post = {
 
 const Home = () => {
   const { data: posts, refetch } = useAppwrite(getAllPosts) as {
+    data: Post[];
+    refetch: () => void;
+  };
+
+  const { data: latestPosts } = useAppwrite(getLatestPosts) as {
     data: Post[];
     refetch: () => void;
   };
@@ -81,7 +85,7 @@ const Home = () => {
               <Text className="text-gray-100 text-lg font-pregular mb-3">
                 Latest Videos
               </Text>
-              <Trending posts={[{ id: 1 }, { id: 2 }, { id: 3 }]} />
+              <Trending posts={latestPosts ?? []} />
             </View>
           </View>
         )}
