@@ -27,6 +27,9 @@ const VideoCard = ({
   const username = author?.username || "Unknown";
   const avatar = author?.avatar || "";
 
+  const [error, setError] = useState<string | null>(null);
+  const [status, setStatus] = useState<string | null>(null);
+
   // Handle video end
   React.useEffect(() => {
     const subscription = player.addListener("playToEnd", () => {
@@ -46,6 +49,25 @@ const VideoCard = ({
       player.pause();
     }
   }, [play, player]);
+
+  // Add error and status listeners
+  React.useEffect(() => {
+    const statusSub = player.addListener(
+      "statusChange",
+      ({ status, error }) => {
+        setStatus(status);
+        if (error) {
+          setError(error.message);
+          console.error("Video error:", error.message);
+        }
+      }
+    );
+    return () => {
+      statusSub?.remove();
+    };
+  }, [player]);
+
+  console.log("Video URL:", video);
 
   return (
     <View className="flex-col items-center px-4 mb-14">
@@ -81,17 +103,35 @@ const VideoCard = ({
       </View>
 
       {play ? (
-        <VideoView
-          player={player}
-          style={{
-            width: "100%",
-            height: 240, // h-60
-            borderRadius: 12,
-            marginTop: 12,
-          }}
-          allowsFullscreen
-          allowsPictureInPicture
-        />
+        error ? (
+          <View
+            style={{
+              width: "100%",
+              height: 240,
+              borderRadius: 12,
+              marginTop: 12,
+              backgroundColor: "#222",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ color: "red", textAlign: "center" }}>
+              Video failed to load.\n{error}
+            </Text>
+          </View>
+        ) : (
+          <VideoView
+            player={player}
+            style={{
+              width: "100%",
+              height: 240, // h-60
+              borderRadius: 12,
+              marginTop: 12,
+            }}
+            allowsFullscreen
+            allowsPictureInPicture
+          />
+        )
       ) : (
         <TouchableOpacity
           activeOpacity={0.7}
