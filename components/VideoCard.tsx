@@ -67,7 +67,7 @@ const VideoCard = ({
     };
   }, [player]);
 
-  console.log("Video URL:", video);
+  // console.log("Video URL:", video);
 
   return (
     <View className="flex-col items-center px-4 mb-14">
