@@ -1,20 +1,20 @@
 import {
   View,
-  Text,
   FlatList,
   Image,
-  RefreshControl,
   TouchableOpacity,
 } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { icons, images } from "@/constants";
+import { router } from "expo-router";
+
+import { icons } from "@/constants";
 import InfoBox from "@/components/InfoBox";
 import EmptyState from "@/components/EmptyState";
 import VideoCard from "@/components/VideoCard";
 
-import { getUserPosts } from "@/lib/appwrite";
+import { getUserPosts, signOut } from "@/lib/appwrite";
 import useAppwrite from "@/lib/useAppwrite";
 import { useGlobalContext } from "@/context/GlobalProvider";
 
@@ -38,7 +38,13 @@ const Profile = () => {
     refetch: () => void;
   };
 
-  const logout = () => {};
+  const logout = async () => {
+    await signOut();
+    setUser(null);
+    setIsLoggedIn(false);
+
+    router.replace("/sign-in");
+  };
 
   return (
     <SafeAreaView className="bg-primary h-full">
