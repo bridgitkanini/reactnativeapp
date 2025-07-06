@@ -25,14 +25,14 @@ type Post = {
 
 const Search = () => {
   const { query } = useLocalSearchParams();
-  const { data: posts, refetch } = useAppwrite(() => searchPosts(query)) as {
+  const queryString = Array.isArray(query) ? query[0] : query;
+
+  const { data: posts, refetch } = useAppwrite(() =>
+    searchPosts(queryString)
+  ) as {
     data: Post[];
     refetch: () => void;
   };
-
-  useEffect(() => {
-    refetch();
-  }, [query]);
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -45,12 +45,12 @@ const Search = () => {
             <Text className="font-pmedium text-sm text-gray-100">
               Search Results
             </Text>
-            <Text className="font-psemibold text-2xl text-white">{query}</Text>
+            <Text className="font-psemibold text-2xl text-white">
+              {queryString}
+            </Text>
 
             <View className="mt-6 mb-8">
-              <SearchInput
-                initialQuery={Array.isArray(query) ? query[0] : query}
-              />
+              <SearchInput initialQuery={queryString} />
             </View>
           </View>
         )}
