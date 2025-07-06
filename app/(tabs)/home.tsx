@@ -1,5 +1,5 @@
 import { View, Text, FlatList, Image, RefreshControl } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { images } from "@/constants";
@@ -10,6 +10,7 @@ import VideoCard from "@/components/VideoCard";
 
 import { getAllPosts, getLatestPosts } from "@/lib/appwrite";
 import useAppwrite from "@/lib/useAppwrite";
+import { useGlobalContext } from "@/context/GlobalProvider";
 
 // Define the type for posts from Appwrite
 type Post = {
@@ -24,6 +25,8 @@ type Post = {
 };
 
 const Home = () => {
+  const { user, setUser, setIsLoggedIn } = useGlobalContext();
+
   const { data: posts, refetch } = useAppwrite(getAllPosts) as {
     data: Post[];
     refetch: () => void;
@@ -34,7 +37,6 @@ const Home = () => {
     refetch: () => void;
   };
 
-  const [search, setSearch] = useState("");
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -55,10 +57,10 @@ const Home = () => {
             <View className="justify-between items-start flex-row mb-6">
               <View>
                 <Text className="font-pmedium text-sm text-gray-100">
-                  Welcome back
+                  Welcome back,
                 </Text>
                 <Text className="font-psemibold text-2xl text-white">
-                  Admin00
+                  {user?.username}
                 </Text>
               </View>
               <View className="mt=1.5">

@@ -9,15 +9,17 @@ import { Link, router } from "expo-router";
 
 import { getCurrentUser, signIn } from "@/lib/appwrite";
 
+import { useGlobalContext } from "@/context/GlobalProvider";
+
 const SignIn = () => {
+  const { setUser, setIsLoggedIn } = useGlobalContext();
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isLogged, setIsLogged] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  
 
   const submit = async () => {
     if (form.email === "" || form.password === "") {
@@ -30,9 +32,10 @@ const SignIn = () => {
       await signIn(form.email, form.password);
       const result = await getCurrentUser();
       setUser(result);
-      setIsLogged(true);
+      setIsLoggedIn(true);
 
       Alert.alert("Success", "User signed in successfully");
+      
       router.replace("/home");
     } catch (error: any) {
       Alert.alert("Error", error.message);
