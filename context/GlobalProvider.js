@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { getCurrentUser } from "@/lib/appwrite";
 
 const GlobalContext = createContext();
@@ -34,7 +34,7 @@ const GlobalProvider = ({ children }) => {
         setIsLoggedIn,
         user,
         setUser,
-        isLoading
+        isLoading,
       }}
     >
       {children}
