@@ -1,9 +1,7 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { icons } from "@/constants";
-
-
-import { Video, ResizeMode } from "expo-av";
+import { VideoView, useVideoPlayer } from "expo-video";
 
 interface VideoCardProps {
   video: {
@@ -21,9 +19,33 @@ const VideoCard = ({
   video: { title, thumbnail, video, author },
 }: VideoCardProps) => {
   const [play, setPlay] = useState(false);
+  const player = useVideoPlayer(video, (player) => {
+    player.loop = false;
+    player.muted = false;
+  });
 
   const username = author?.username || "Unknown";
   const avatar = author?.avatar || "";
+
+  // Handle video end
+  React.useEffect(() => {
+    const subscription = player.addListener("playToEnd", () => {
+      setPlay(false);
+    });
+
+    return () => {
+      subscription?.remove();
+    };
+  }, [player]);
+
+  // Control playback
+  React.useEffect(() => {
+    if (play) {
+      player.play();
+    } else {
+      player.pause();
+    }
+  }, [play, player]);
 
   return (
     <View className="flex-col items-center px-4 mb-14">
@@ -59,18 +81,17 @@ const VideoCard = ({
       </View>
 
       {play ? (
-         <Video 
-         source={{ uri: video }} 
-         className="w-full h-60 rounded-xl mt-3" 
-         resizeMode={ResizeMode.CONTAIN} 
-         useNativeControls 
-         shouldPlay 
-         onPlaybackStatusUpdate={(status) => {
-           if (status.isLoaded && status.didJustFinish) {
-             setPlay(false);
-           }
-         }}
-         />
+        <VideoView
+          player={player}
+          style={{
+            width: "100%",
+            height: 240, // h-60
+            borderRadius: 12,
+            marginTop: 12,
+          }}
+          allowsFullscreen
+          allowsPictureInPicture
+        />
       ) : (
         <TouchableOpacity
           activeOpacity={0.7}
