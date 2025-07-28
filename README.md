@@ -155,7 +155,7 @@ This project is licensed under the MIT License - see the [LICENSE](https://opens
 
 ## Resources
 
-- [Figma](https://www.figma.com/design/o6xKq25ETLqw5ebqgZonVp/Aora---React-Native-Crash-Course?node-id=0-1&p=f&t=7bYuEQlUMhziwtoG-0)
+- [Figma Design](https://www.figma.com/design/o6xKq25ETLqw5ebqgZonVp/Aora---React-Native-Crash-Course?node-id=0-1&p=f&t=7bYuEQlUMhziwtoG-0)
 - [React Native](https://reactnative.dev/)
 - [Expo](https://expo.dev/)
 - [Appwrite](https://appwrite.io/) for the backend services
